@@ -43,3 +43,8 @@ ListNode* buildListFromText(const std::string& filename) {
 
     return n > 0 ? nodes[0] : nullptr;
 }
+
+void serialize(ListNode* head, const std::string& filename)
+{
+
+}

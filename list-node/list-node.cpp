@@ -3,6 +3,11 @@
 
 
 int main() {
-    ListNode* head = new ListNode();
+    try {
+        ListNode* head = buildListFromText("inlet.in");
+    }
+    catch (const std::exception& ex) {
+        std::cerr << "Error: " << ex.what() << std::endl;
+    }
     return 0;
 }
