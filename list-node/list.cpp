@@ -50,11 +50,27 @@ void serialize(ListNode* head, const std::string& filename)
     if (!out.is_open())
         throw std::runtime_error("Cannot open outlet file");
 
-    // собираем узлы в вектор для индексации
     std::vector<ListNode*> nodes;
     for (ListNode* cur = head; cur != nullptr; cur = cur->next)
         nodes.push_back(cur);
 
     size_t count = nodes.size();
     out.write(reinterpret_cast<char*>(&count), sizeof(count));
+
+    std::unordered_map<ListNode*, size_t> index_map;
+    for (size_t i = 0; i < count; ++i)
+        index_map[nodes[i]] = i;
+
+    for (size_t i = 0; i < count; ++i) {
+        size_t data_size = nodes[i]->data.size();
+        out.write(reinterpret_cast<char*>(&data_size), sizeof(data_size));
+
+        out.write(nodes[i]->data.data(), data_size);
+
+        int64_t rand_index = -1;
+        if (nodes[i]->rand != nullptr)
+            rand_index = index_map[nodes[i]->rand];
+
+        out.write(reinterpret_cast<char*>(&rand_index), sizeof(rand_index));
+    }
 }
