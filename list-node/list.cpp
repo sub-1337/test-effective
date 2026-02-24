@@ -33,5 +33,13 @@ ListNode* buildListFromText(const std::string& filename) {
             nodes[i]->next = nodes[i + 1];
     }
 
-    return nullptr;
+    for (size_t i = 0; i < n; ++i) {
+        if (rand_indices[i] >= 0) {
+            if (rand_indices[i] >= (long long)n)
+                throw std::runtime_error("Invalid rand index");
+            nodes[i]->rand = nodes[rand_indices[i]];
+        }
+    }
+
+    return n > 0 ? nodes[0] : nullptr;
 }
