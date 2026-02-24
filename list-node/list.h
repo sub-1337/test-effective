@@ -12,3 +12,5 @@ struct ListNode {
     ListNode* rand = nullptr;
     std::string data;
 };
+
+ListNode* buildListFromText(const std::string& filename);
