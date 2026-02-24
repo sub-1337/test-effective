@@ -98,5 +98,17 @@ ListNode* deserialize(const std::string& filename) {
         in.read(reinterpret_cast<char*>(&rand_indices[i]), sizeof(int64_t));
     }
 
-    return nullptr;
+    for (size_t i = 0; i < count; ++i) {
+        if (i > 0)
+            nodes[i]->prev = nodes[i - 1];
+        if (i + 1 < count)
+            nodes[i]->next = nodes[i + 1];
+    }
+
+    for (size_t i = 0; i < count; ++i) {
+        if (rand_indices[i] >= 0)
+            nodes[i]->rand = nodes[rand_indices[i]];
+    }
+
+    return count > 0 ? nodes[0] : nullptr;
 }
