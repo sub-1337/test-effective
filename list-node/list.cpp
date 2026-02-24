@@ -74,3 +74,29 @@ void serialize(ListNode* head, const std::string& filename)
         out.write(reinterpret_cast<char*>(&rand_index), sizeof(rand_index));
     }
 }
+
+ListNode* deserialize(const std::string& filename) {
+    std::ifstream in(filename, std::ios::binary);
+    if (!in.is_open())
+        throw std::runtime_error("Cannot open binary file");
+
+    size_t count;
+    in.read(reinterpret_cast<char*>(&count), sizeof(count));
+
+    std::vector<ListNode*> nodes(count);
+    std::vector<int64_t> rand_indices(count);
+
+    for (size_t i = 0; i < count; ++i) {
+        nodes[i] = new ListNode();
+
+        size_t data_size;
+        in.read(reinterpret_cast<char*>(&data_size), sizeof(data_size));
+
+        nodes[i]->data.resize(data_size);
+        in.read(&nodes[i]->data[0], data_size);
+
+        in.read(reinterpret_cast<char*>(&rand_indices[i]), sizeof(int64_t));
+    }
+
+    return nullptr;
+}

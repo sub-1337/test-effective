@@ -15,3 +15,4 @@ struct ListNode {
 
 ListNode* buildListFromText(const std::string& filename);
 void serialize(ListNode* head, const std::string& filename);
+ListNode* deserialize(const std::string& filename);
