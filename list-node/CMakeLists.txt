@@ -19,3 +19,5 @@ if (CMAKE_VERSION VERSION_GREATER 3.12)
 endif()
 
 # TODO: Добавьте тесты и целевые объекты, если это необходимо.
+file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/inlet.in" 
+     DESTINATION "${CMAKE_CURRENT_BINARY_DIR}")
