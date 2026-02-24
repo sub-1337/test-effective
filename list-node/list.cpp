@@ -46,5 +46,15 @@ ListNode* buildListFromText(const std::string& filename) {
 
 void serialize(ListNode* head, const std::string& filename)
 {
+    std::ofstream out(filename, std::ios::binary);
+    if (!out.is_open())
+        throw std::runtime_error("Cannot open outlet file");
 
+    // собираем узлы в вектор для индексации
+    std::vector<ListNode*> nodes;
+    for (ListNode* cur = head; cur != nullptr; cur = cur->next)
+        nodes.push_back(cur);
+
+    size_t count = nodes.size();
+    out.write(reinterpret_cast<char*>(&count), sizeof(count));
 }
